@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#041722">
+<link rel="manifest" href="manifest-admin.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Sorevia Admin">
+<title>Sorevia Bank — Administration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#041722;--brand:#0b7fc4;--sky:#5fd3f0;--paper:#f3f6f9;--ink:#0f2431;--mute:#67808c;--line:#dde7ec;--ok:#17915f;--okbg:#e6f6ee;--warn:#b97a0a;--warnbg:#fff4d9;--bad:#cf4545;--badbg:#fdeceb;--amber:#f5b400}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--paper);color:var(--ink);font:500 14.5px/1.5 Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;font-variant-numeric:tabular-nums}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}.hidden{display:none!important}:focus-visible{outline:3px solid #0b7fc455;outline-offset:2px}
+.i{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#12a5e0,#08507a);display:grid;place-items:center;font-weight:800;font-size:21px;color:#fff;flex:none}
+.lg{min-height:100vh;display:grid;place-items:center;padding:20px;background:var(--navy) repeating-radial-gradient(circle at 100% 0,transparent 0 14px,#5fd3f00d 14px 15px)}
+.lgc{background:#fff;border-radius:20px;padding:32px 28px;width:100%;max-width:400px}.lgc h1{margin:16px 0 4px;font-size:22px;letter-spacing:-.3px}.lgc p{margin:0 0 22px;color:var(--mute);font-size:14px}
+.f{margin-bottom:14px}.f label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}
+.in,select,textarea{width:100%;height:46px;border:1px solid var(--line);border-radius:11px;padding:0 13px;background:#fff;outline:0}textarea{height:90px;padding:11px 13px;resize:vertical}
+.in:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:0 0 0 4px #0b7fc41f}
+.btn{height:46px;border-radius:11px;border:0;padding:0 18px;font-weight:700;background:var(--brand);color:#fff;width:100%;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn:hover{background:#096aa6}.btn:disabled{opacity:.6}
+.btn.ghost{background:#fff;color:#46606c;border:1px solid var(--line)}.btn.ghost:hover{background:#f3f6f9}.btn.sm{width:auto;height:38px;padding:0 14px;font-size:13.5px}.btn.red{background:var(--bad)}.btn.red:hover{background:#b83a3a}.btn.ok{background:var(--ok)}.btn.ok:hover{background:#12784e}
+.err{color:var(--bad);font-weight:700;font-size:13.5px;margin-top:12px}
+#app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.side{background:var(--navy);color:#a9c2cd;padding:20px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:4px;overflow:auto}
+.brand{display:flex;gap:11px;align-items:center;padding:4px 10px 20px;color:#fff}.brand b{display:block;font-size:16px}.brand small{font-size:11.5px;background:var(--amber);color:#3a2a00;border-radius:6px;padding:1px 7px;font-weight:800}
+.nav{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;color:inherit;padding:11px 12px;border-radius:10px;text-align:left;font-weight:600;position:relative}.nav:hover{background:#ffffff0f;color:#fff}.nav.on{background:#ffffff17;color:#fff}.nav.on:before{content:"";position:absolute;left:-12px;top:9px;bottom:9px;width:4px;border-radius:0 4px 4px 0;background:var(--sky)}
+.sp1{flex:1}.who{padding:10px 12px;font-size:12.5px;color:#7fa0ae;word-break:break-all}
+.top{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 28px;background:#fffc;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}.top h1{margin:0;font-size:18px}.top .r{display:flex;gap:8px;align-items:center}
+.tabs{display:none}.wrap{max-width:1180px;margin:0 auto;padding:24px 28px 60px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:18px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}.box h3{margin:0 0 10px;font-size:16px}
+.stat span{display:block;color:var(--mute);font-size:13px}.stat b{font-size:22px;letter-spacing:-.5px;line-height:1.3;display:block;margin-top:2px}.stat.k{border-left:4px solid var(--brand)}.stat.w{border-left:4px solid var(--amber)}.stat.g{border-left:4px solid var(--ok)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}.bar .in,.bar select{width:auto;flex:1;min-width:160px;max-width:340px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13.5px}th{text-align:left;color:var(--mute);font-size:12.5px;font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle}tr:hover td{background:#f8fbfc}
+.cell{display:flex;align-items:center;gap:7px;white-space:nowrap}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+.cp{border:1px solid var(--line);background:#fff;border-radius:8px;width:28px;height:28px;display:grid;place-items:center;color:#46606c;flex:none}.cp:hover{border-color:var(--brand);color:var(--brand)}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(145deg,#12a5e0,#08507a);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.st{display:inline-block;font-size:12px;font-weight:700;border-radius:20px;padding:2px 10px;white-space:nowrap}.st.ok{background:var(--okbg);color:var(--ok)}.st.pend{background:var(--warnbg);color:var(--warn)}.st.bad{background:var(--badbg);color:var(--bad)}
+.ib{border:1px solid var(--line);background:#fff;border-radius:9px;width:34px;height:34px;display:inline-grid;place-items:center;color:#46606c}.ib:hover{border-color:var(--brand);color:var(--brand)}.ib.d:hover{border-color:var(--bad);color:var(--bad)}.ib.o:hover{border-color:var(--ok);color:var(--ok)}
+.acts{display:flex;gap:6px}.empty{text-align:center;color:var(--mute);padding:34px 10px}.note{color:var(--mute);font-size:12.5px;margin-top:10px}
+.chips{display:flex;gap:8px;margin-bottom:12px}.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 15px;font-weight:700;color:#46606c}.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.modal{position:fixed;inset:0;background:#031521cc;display:grid;place-items:center;padding:16px;z-index:300}.mb{background:#fff;border-radius:18px;width:100%;max-width:520px;max-height:92vh;overflow:auto;padding:24px;position:relative}.mb h3{margin:0 0 14px;font-size:20px;padding-right:30px}.mb h4{margin:18px 0 10px;font-size:15px}
+.x{position:absolute;right:14px;top:14px;width:32px;height:32px;border:0;border-radius:50%;background:#eef3f5;font-size:20px;line-height:1}
+.ids div{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.ids span{width:92px;color:var(--mute);font-size:13px;flex:none}.ids b{flex:1;word-break:break-all;font-size:13px}
+.k3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.k3 div{background:#f3f6f9;border-radius:11px;padding:10px 12px}.k3 span{display:block;font-size:12px;color:var(--mute)}.k3 b{font-size:14.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}.mb .in,.mb select{margin-bottom:10px}.chk{display:flex;gap:9px;align-items:center;margin:2px 0 14px;font-weight:600;font-size:13.5px}.chk input{width:18px;height:18px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,160px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;z-index:500;transition:transform .3s;max-width:90%;text-align:center}.toast.show{transform:translate(-50%,0)}
+.onb{display:inline-flex;align-items:center;gap:7px;border-radius:20px;padding:4px 12px;font-weight:700;font-size:12px;white-space:nowrap;background:#e8edf0;color:#6b7b85}.onb:before{content:"";width:8px;height:8px;border-radius:50%;background:#a3b0b8}
+.onb.on{background:#17a34a;color:#fff}.onb.on:before{background:#fff;box-shadow:0 0 0 3px #ffffff55}
+@media(max-width:900px){#app{display:block}.side{display:none}.top{padding:0 14px}.wrap{padding:16px 12px 60px}.g2{grid-template-columns:1fr}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:64px;z-index:30}.tabs button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:7px 14px;font-weight:700;white-space:nowrap;color:#46606c}.tabs button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+#mail{display:none}}
+@media(max-width:520px){.k3{grid-template-columns:1fr}.two,.row2{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13l3-8h12l3 8v6H3zM3 13h5l1 3h6l1-3h5"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0112 0c0 6 2 7 2 8H4c0-1 2-2 2-8zM10 21h4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-out" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 10-2.3 6M20 4v7h-7"/></symbol>
+</defs></svg>
+
+<div id="login" class="lg hidden"><div class="lgc">
+<div class="logo">S</div><h1>Administration Sorevia Bank</h1><p>Accès réservé aux administrateurs.</p>
+<div class="f"><label for="lEmail">E-mail</label><input class="in" id="lEmail" type="email" autocomplete="username"></div>
+<div class="f"><label for="lPass">Mot de passe</label><input class="in" id="lPass" type="password" autocomplete="current-password"></div>
+<button class="btn" id="lBtn">Se connecter</button><div class="err hidden" id="lErr"></div>
+</div></div>
+
+<div id="boot" class="lg"><div style="color:#fff;font-weight:700">Chargement…</div></div>
+
+<div id="app" class="hidden">
+<aside class="side">
+<div class="brand"><span class="logo">S</span><span><b>Sorevia Bank</b><small>ADMIN</small></span></div>
+<button class="nav" data-v="dashboard"><svg class="i"><use href="#i-home"/></svg>Tableau de bord</button>
+<button class="nav" data-v="users"><svg class="i"><use href="#i-user"/></svg>Utilisateurs</button>
+<button class="nav" data-v="tx"><svg class="i"><use href="#i-list"/></svg>Transactions</button>
+<button class="nav" data-v="req"><svg class="i"><use href="#i-inbox"/></svg>Demandes</button>
+<button class="nav" data-v="notif"><svg class="i"><use href="#i-bell"/></svg>Notifications</button>
+<button class="nav" data-v="logs"><svg class="i"><use href="#i-clock"/></svg>Journal</button>
+<div class="sp1"></div><div class="who" id="who"></div>
+<button class="nav pushbtn"><svg class="i"><use href="#i-bell"/></svg><span class="pushlbl">Activer les alertes</span></button>
+<button class="nav" data-act="logout"><svg class="i"><use href="#i-out"/></svg>Déconnexion</button>
+</aside>
+<div>
+<header class="top"><h1 id="title">Tableau de bord</h1><div class="r"><span id="mail" style="color:var(--mute);font-size:13px"></span>
+<button class="btn ghost sm pushbtn"><svg class="i"><use href="#i-bell"/></svg><span class="pushlbl">Activer les alertes</span></button>
+<button class="btn ghost sm" data-act="refresh"><svg class="i"><use href="#i-refresh"/></svg>Actualiser</button>
+<button class="btn ghost sm" data-act="logout"><svg class="i"><use href="#i-out"/></svg>Déconnexion</button></div></header>
+<nav class="tabs"><button data-v="dashboard">Accueil</button><button data-v="users">Utilisateurs</button><button data-v="tx">Transactions</button><button data-v="req">Demandes</button><button data-v="notif">Notifications</button><button data-v="logs">Journal</button></nav>
+<div id="pushBar" class="hidden" style="padding:10px 14px;background:#fff4d9;border-bottom:1px solid var(--line);font-size:13px;font-weight:700"><span id="pushBarMsg"></span> <button class="btn sm" id="pushBarBtn" style="margin-top:8px">Activer les alertes</button></div>
+<main class="wrap" id="view"></main>
+</div></div>
+
+<div id="modal" class="modal hidden"><div class="mb" id="mbody"></div></div>
+<div id="toast" class="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,setPersistence,browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore,collection,doc,getDoc,getDocs,addDoc,setDoc,updateDoc,deleteDoc,query,where,limit,serverTimestamp,writeBatch,runTransaction,onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+let pushStatus=async()=>"unsupported",enablePush=async()=>"error",refreshPush=async()=>{},disablePush=async()=>{},onForeground=()=>{},showLocal=async()=>false;
+let pushOK=true;
+try{({pushStatus,enablePush,refreshPush,disablePush,onForeground,showLocal}=await import("./push.js"))}catch(e){pushOK=false;console.warn("push.js introuvable, alertes désactivées :",e)}
+
+const firebaseConfig={apiKey:"AIzaSyA_iq7zGnD4100DM06D9sXgMjbCwfqq3JU",authDomain:"sorevia-bank.firebaseapp.com",projectId:"sorevia-bank",storageBucket:"sorevia-bank.firebasestorage.app",messagingSenderId:"729316261396",appId:"1:729316261396:web:bfeebed60e968c65433101",measurementId:"G-HF074LQR8Y"};
+const auth=getAuth(initializeApp(firebaseConfig)),db=getFirestore(auth.app);
+setPersistence(auth,browserLocalPersistence).catch(e=>console.warn("Persistance :",e));
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money=(v,c="XOF")=>new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0}).format(Number(v)||0)+" "+c;
+const fd=t=>t?.toDate?t.toDate().toLocaleString("fr-FR"):"—";
+const tms=t=>t?.toMillis?t.toMillis():0;
+const ic=n=>`<svg class="i"><use href="#i-${n}"/></svg>`;
+const cp=t=>`<button class="cp" data-copy="${esc(t)}" aria-label="Copier" title="Copier">${ic("copy")}</button>`;
+const uname=u=>u?(((u.prenom||"")+" "+(u.nom||"")).trim()||"Sans nom"):"Utilisateur supprimé";
+const ini=u=>(((u?.prenom||"").charAt(0)+(u?.nom||"").charAt(0))||"?").toUpperCase();
+const TL={deposit:"Dépôt",transfer:"Transfert",savings:"Épargne",loan:"Emprunt",card:"Carte",adjustment:"Ajustement",repayment:"Remboursement"};
+const RATE=0.05;
+const dstr=()=>new Date().toLocaleString("fr-FR");
+const FL={balance:"compte principal",savingsBalance:"compte épargne",cardBalance:"carte"};
+const TT={dashboard:"Tableau de bord",users:"Utilisateurs",tx:"Transactions",req:"Demandes",notif:"Notifications",logs:"Journal d'activité"};
+const isPend=s=>/attente/i.test(s||"");
+const pill=s=>`<span class="st ${isPend(s)?"pend":/rejet|annul/i.test(s||"")?"bad":"ok"}">${esc(s||"—")}</span>`;
+
+let me=null,view="dashboard",S={users:[],tx:[],dr:[],lr:[],logs:[],closed:[]},F={uq:"",tq:"",tt:"all",ts:"all",rt:"dep",nu:"all"};
+const uById=id=>S.users.find(u=>u.id===id);
+const uMail=id=>uById(id)?.email||"";
+
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove("show"),3200)}
+function copy(t){(navigator.clipboard?.writeText(t)||Promise.reject()).then(()=>toast("Copié : "+(t.length>28?t.slice(0,26)+"…":t)),()=>{const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("Copié")}catch(e){toast("Copie impossible")}a.remove()})}
+const modal=h=>{$("mbody").innerHTML=h;$("modal").classList.remove("hidden")};
+const closeM=()=>$("modal").classList.add("hidden");
+function csv(rows,name){const t="\ufeff"+rows.map(r=>r.map(c=>'"'+String(c??"").replace(/"/g,'""')+'"').join(";")).join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([t],{type:"text/csv;charset=utf-8"}));a.download=name;document.body.appendChild(a);a.click();a.remove()}
+
+/* ---------- Données ---------- */
+const mapDocs=s=>s.docs.map(d=>({id:d.id,...d.data()}));
+async function loadAll(){
+const [u,t,d,l,z]=await Promise.all([getDocs(collection(db,"users")),getDocs(query(collection(db,"transactions"),limit(1500))),getDocs(collection(db,"depositRequests")),getDocs(collection(db,"loanRequests")),getDocs(collection(db,"closedUsers")).catch(()=>({docs:[]}))]);
+S.users=mapDocs(u).sort((a,b)=>uname(a).localeCompare(uname(b)));
+const by=(a,b)=>tms(b.createdAt)-tms(a.createdAt);
+S.tx=mapDocs(t).sort(by);S.dr=mapDocs(d).sort(by);S.lr=mapDocs(l).sort(by);S.closed=mapDocs(z).sort((a,b)=>tms(b.closedAt)-tms(a.closedAt));
+}
+async function log(action,detail){try{await addDoc(collection(db,"adminLogs"),{adminUid:me.uid,adminEmail:me.email,action,detail:String(detail||""),createdAt:serverTimestamp()})}catch(e){console.warn("Journal :",e)}}
+const notify=(uid,title,message)=>addDoc(collection(db,"notifications"),{uid,title,message,read:false,createdAt:serverTimestamp()});
+async function delMany(refs){for(let i=0;i<refs.length;i+=400){const b=writeBatch(db);refs.slice(i,i+400).forEach(r=>b.delete(r));await b.commit()}}
+async function bump(uid,field,delta,abs){
+const ref=doc(db,"users",uid),d=(await getDoc(ref)).data(),cur=Number(d[field])||0,nv=abs!==undefined?abs:cur+delta;
+if(nv<0)throw new Error("Solde insuffisant : le solde ne peut pas être négatif.");
+await updateDoc(ref,{[field]:nv});return{cur,nv,d};
+}
+function addM(d,k){const x=new Date(d);x.setMonth(x.getMonth()+k);return x}
+function lateMonths(due){let k=0;while(k<600&&addM(due,k+1)<=new Date())k++;return k}
+async function accrueUser(u){
+const c=u.devise||"XOF";
+const out=await runTransaction(db,async tr=>{
+const r=doc(db,"users",u.id),d=(await tr.get(r)).data(),dn=d.loanPenaltyCount||0;
+if(!(d.loanBalance<0)||!d.loanDueAt?.toDate)return null;
+const nn=lateMonths(d.loanDueAt.toDate());if(nn<=dn)return null;
+const per=Math.round((d.loanPrincipal||0)*RATE);
+tr.update(r,{loanBalance:d.loanBalance-per*(nn-dn),loanPenaltyCount:nn});
+return{per,dn,nn,bal:d.loanBalance,due:d.loanDueAt.toDate()};
+});
+if(!out)return 0;
+let b=out.bal;
+for(let k=out.dn+1;k<=out.nn;k++){b-=out.per;
+await notify(u.id,"Emprunt en retard : pénalité du mois "+k,["Pénalité n° : "+k,"Montant ajouté : + "+money(out.per,c)+" ("+(RATE*100)+" % du capital)","Nouveau solde de l'emprunt : − "+money(-b,c),"Échéance initiale : "+out.due.toLocaleDateString("fr-FR"),"Date : "+dstr()].join("\n"));}
+await log("Pénalité de retard",uname(u)+" — "+(out.nn-out.dn)+" mois, solde "+money(b,c));
+return out.nn-out.dn;
+}
+async function accrueAll(){let n=0;for(const u of S.users){if(Number(u.loanBalance)<0&&u.loanDueAt){try{n+=await accrueUser(u)}catch(e){console.warn("Pénalités :",e)}}}return n}
+async function run(fn,ok){try{await fn();await loadAll();render();toast(ok)}catch(e){console.error(e);toast(e.code?"Erreur ("+e.code+")":e.message||"Erreur")}}
+
+/* ---------- Rendu ---------- */
+function render(){
+document.querySelectorAll("[data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===view));
+$("title").textContent=TT[view];
+({dashboard:rDash,users:rUsers,tx:rTx,req:rReq,notif:rNotif,logs:rLogs})[view]();
+window.scrollTo(0,0);
+}
+function totals(f){const m={};S.users.forEach(u=>{const c=u.devise||"XOF";m[c]=(m[c]||0)+(Number(u[f])||0)});const e=Object.entries(m);return e.length?e.map(([c,v])=>money(v,c)).join("<br>"):"0"}
+const pc=a=>a.filter(x=>isPend(x.status)).length;
+function rDash(){
+const pr=[...S.dr.filter(x=>isPend(x.status)).map(x=>({...x,k:"dep"})),...S.lr.filter(x=>isPend(x.status)).map(x=>({...x,k:"loan"}))].sort((a,b)=>tms(b.createdAt)-tms(a.createdAt)).slice(0,6);
+$("view").innerHTML=`<div class="g4">
+<div class="box stat k"><span>Clients (${S.users.filter(u=>u.disabled).length} désactivé(s))</span><b>${S.users.length}</b></div>
+<div class="box stat g"><span>Utilisateurs en ligne</span><b style="color:var(--ok)">${S.users.filter(isOn).length}</b></div>
+<div class="box stat g"><span>Soldes principaux</span><b>${totals("balance")}</b></div>
+<div class="box stat g"><span>Épargne totale</span><b>${totals("savingsBalance")}</b></div>
+<div class="box stat g"><span>Soldes des cartes</span><b>${totals("cardBalance")}</b></div>
+<div class="box stat w"><span>Emprunts en cours (dus par les clients)</span><b style="color:var(--bad)">${totals("loanBalance")}</b></div>
+<div class="box stat w"><span>Transactions en attente</span><b>${pc(S.tx)}</b></div>
+<div class="box stat w"><span>Dépôts en attente</span><b>${pc(S.dr)}</b></div>
+<div class="box stat w"><span>Emprunts en attente</span><b>${pc(S.lr)}</b></div>
+<div class="box stat k"><span>Opérations enregistrées</span><b>${S.tx.length}</b></div></div>
+<div class="g2"><div class="box"><h3>Dernières opérations</h3><div class="tw"><table><tbody>${S.tx.slice(0,7).map(t=>`<tr><td>${esc(uname(uById(t.uid)))}<br><span class="note">${fd(t.createdAt)}</span></td><td>${TL[t.type]||"Opération"}</td><td><b>${money(t.amount,t.currency)}</b></td><td>${pill(t.status)}</td></tr>`).join("")||'<tr><td class="empty">Aucune opération</td></tr>'}</tbody></table></div></div>
+<div class="box"><h3>Demandes à traiter</h3><div class="tw"><table><tbody>${pr.map(r=>`<tr><td>${esc(uname(uById(r.uid)))}<br><span class="note">${fd(r.createdAt)}</span></td><td>${r.k==="dep"?"Dépôt":"Emprunt"}</td><td><b>${money(r.amount,r.currency)}</b></td></tr>`).join("")||'<tr><td class="empty">Rien en attente</td></tr>'}</tbody></table></div>
+<button class="btn ghost sm" style="margin-top:12px" data-v="req">Ouvrir les demandes</button></div></div>`;
+}
+
+const closedBox=()=>S.closed.length?`<div class="box" style="margin-top:16px"><h3>Comptes supprimés (${S.closed.length})</h3><div class="note" style="margin:-4px 0 10px">Ces clients n'apparaissent plus dans l'application. Pour supprimer aussi leur connexion, retirez-les dans Firebase → Authentication → Users (cherchez l'e-mail ou l'UID).</div><div class="tw"><table><thead><tr><th>E-mail</th><th>UID</th><th>Supprimé le</th></tr></thead><tbody>${S.closed.map(z=>`<tr><td><div class="cell">${esc(z.email||"—")}${z.email?cp(z.email):""}</div></td><td><div class="cell"><span class="mono">${esc(z.id)}</span>${cp(z.id)}</div></td><td class="note">${fd(z.closedAt)}</td></tr>`).join("")}</tbody></table></div></div>`:"";
+function rUsers(){
+$("view").innerHTML=`<div class="bar"><span class="onb on" id="onc"></span><input class="in" id="uq" placeholder="Rechercher : nom, e-mail, UID, n° de compte" value="${esc(F.uq)}"><button class="btn ghost sm" data-act="disusers">Désactiver</button><button class="btn ghost sm" data-act="enusers">Réactiver</button><button class="btn red sm" data-act="delusers">${ic("trash")}Supprimer</button><button class="btn ghost sm" data-act="exusers">${ic("dl")}Exporter CSV</button></div><div class="box"><div class="tw" id="tbl"></div></div>${closedBox()}`;
+$("uq").oninput=e=>{F.uq=e.target.value;fillUsers()};fillUsers();
+}
+function fillUsers(){
+upOn();const q=F.uq.toLowerCase(),L=S.users.filter(u=>!q||[uname(u),u.email,u.id,u.accountNumber].join(" ").toLowerCase().includes(q));
+$("tbl").innerHTML=L.length?`<table><thead><tr><th></th><th>Client</th><th>Statut</th><th>E-mail</th><th>UID</th><th>Compte</th><th>Solde</th><th>Épargne</th><th>Carte</th><th>Emprunt</th><th></th></tr></thead><tbody>${L.map(u=>{const c=u.devise||"XOF";return`<tr style="${u.disabled?"opacity:.6":""}"><td><input type="checkbox" class="usel" value="${esc(u.id)}" aria-label="Sélectionner"></td><td><div class="cell"><span class="av">${ini(u)}</span><b>${esc(uname(u))}</b>${u.disabled?'<span class="st bad">Désactivé</span>':""}</div></td>
+<td>${onl(u)}</td><td><div class="cell">${esc(u.email||"—")}${u.email?cp(u.email):""}</div></td><td><div class="cell"><span class="mono">${esc(u.id.slice(0,10))}…</span>${cp(u.id)}</div></td>
+<td class="mono">${esc(u.accountNumber||"—")}</td><td><b>${money(u.balance,c)}</b></td><td>${money(u.savingsBalance,c)}</td><td>${money(u.cardBalance,c)}</td><td>${(Number(u.loanBalance)||0)<0?`<b style="color:var(--bad)">− ${money(-u.loanBalance,c)}</b>`:"—"}</td>
+<td><button class="btn sm" data-act="user" data-id="${esc(u.id)}">Gérer</button></td></tr>`}).join("")}</tbody></table>`:'<div class="empty">Aucun utilisateur trouvé.</div>';
+}
+
+function rTx(){
+$("view").innerHTML=`<div class="bar"><input class="in" id="tq" placeholder="Rechercher : client, e-mail, UID, bénéficiaire, IBAN" value="${esc(F.tq)}">
+<select id="tt"><option value="all">Tous les types</option>${Object.entries(TL).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select>
+<select id="ts"><option value="all">Tous les statuts</option><option value="En attente">En attente</option><option value="Effectué">Effectué</option><option value="Rejeté">Rejeté</option><option value="Annulé">Annulé</option></select>
+<button class="btn ghost sm" data-act="delsel">${ic("trash")}Supprimer la sélection</button><button class="btn ghost sm" data-act="extx">${ic("dl")}Exporter CSV</button></div>
+<div class="box"><div class="tw" id="tbl"></div><div class="note" id="tnote"></div></div>`;
+$("tt").value=F.tt;$("ts").value=F.ts;
+$("tq").oninput=e=>{F.tq=e.target.value;fillTx()};$("tt").onchange=e=>{F.tt=e.target.value;fillTx()};$("ts").onchange=e=>{F.ts=e.target.value;fillTx()};fillTx();
+}
+const txFilter=()=>{const q=F.tq.toLowerCase();return S.tx.filter(t=>(F.tt==="all"||t.type===F.tt)&&(F.ts==="all"||t.status===F.ts)&&(!q||[uname(uById(t.uid)),uMail(t.uid),t.uid,t.beneficiaryName,t.beneficiaryIban,t.description].join(" ").toLowerCase().includes(q)))};
+function fillTx(){
+const L=txFilter(),V=L.slice(0,200);
+$("tbl").innerHTML=V.length?`<table><thead><tr><th></th><th>Date</th><th>Client</th><th>Type</th><th>Montant</th><th>Statut</th><th>Détails</th><th></th></tr></thead><tbody>${V.map(t=>`<tr><td><input type="checkbox" class="sel" value="${esc(t.id)}" aria-label="Sélectionner"></td><td class="note" style="white-space:nowrap">${fd(t.createdAt)}</td>
+<td><b>${esc(uname(uById(t.uid)))}</b><br><span class="note">${esc(uMail(t.uid))}</span></td><td>${TL[t.type]||"Opération"}</td><td><b>${t.direction==="debit"||t.type==="transfer"?"− ":t.direction==="credit"||t.type==="deposit"?"+ ":""}${money(t.amount,t.currency)}</b></td><td>${pill(t.status)}</td>
+<td style="max-width:260px">${t.beneficiaryName?esc(t.beneficiaryName)+"<br><span class='mono'>"+esc(t.beneficiaryIban||"")+"</span>":esc(t.description||"")}</td>
+<td><div class="acts"><button class="ib" data-act="edittx" data-id="${esc(t.id)}" aria-label="Modifier">${ic("edit")}</button><button class="ib d" data-act="deltx" data-id="${esc(t.id)}" aria-label="Supprimer">${ic("trash")}</button></div></td></tr>`).join("")}</tbody></table>`:'<div class="empty">Aucune opération.</div>';
+$("tnote").textContent=L.length>200?"Affichage des 200 premières opérations sur "+L.length+". Affinez la recherche.":L.length+" opération(s).";
+}
+
+function rReq(){
+const dep=F.rt==="dep",L=dep?S.dr:S.lr;
+$("view").innerHTML=`<div class="chips"><button class="chip ${dep?"on":""}" data-act="rt" data-id="dep">Dépôts (${pc(S.dr)} en attente)</button><button class="chip ${dep?"":"on"}" data-act="rt" data-id="loan">Emprunts (${pc(S.lr)} en attente)</button></div>
+<div class="box"><div class="tw">${L.length?`<table><thead><tr><th>Date</th><th>Client</th><th>Montant</th>${dep?"":"<th>Durée</th><th>Motif</th>"}<th>Statut</th><th></th></tr></thead><tbody>${L.map(r=>`<tr><td class="note" style="white-space:nowrap">${fd(r.createdAt)}</td><td><b>${esc(uname(uById(r.uid)))}</b><br><span class="note">${esc(uMail(r.uid))}</span></td><td><b>${money(r.amount,r.currency)}</b></td>${dep?"":`<td>${esc(r.durationMonths)} mois</td><td style="max-width:240px">${esc(r.reason)}</td>`}<td>${pill(r.status)}</td>
+<td><div class="acts">${isPend(r.status)?`<button class="ib o" data-act="ok" data-id="${esc(r.id)}" aria-label="Approuver" title="Approuver">${ic("check")}</button><button class="ib d" data-act="no" data-id="${esc(r.id)}" aria-label="Rejeter" title="Rejeter">${ic("x")}</button>`:""}<button class="ib d" data-act="delreq" data-id="${esc(r.id)}" aria-label="Supprimer">${ic("trash")}</button></div></td></tr>`).join("")}</tbody></table>`:'<div class="empty">Aucune demande.</div>'}</div></div>
+<div class="note">Approuver un dépôt crédite automatiquement le compte principal du client. Approuver un emprunt crédite le capital sur le compte principal et enregistre la dette du client (capital + 5 % par mois de durée), puis 5 % du capital s'ajoutent chaque mois après l'échéance.</div>`;
+}
+
+function rNotif(){
+$("view").innerHTML=`<div class="box" style="max-width:620px"><h3>Envoyer une notification</h3>
+<div class="f"><label>Destinataire</label><select id="nu"><option value="all">Tous les clients (${S.users.length})</option>${S.users.map(u=>`<option value="${esc(u.id)}">${esc(uname(u))} — ${esc(u.email||u.id)}</option>`).join("")}</select></div>
+<div class="f"><label>Titre</label><input class="in" id="nt" placeholder="Ex. Information importante"></div>
+<div class="f"><label>Message</label><textarea id="nm" placeholder="Votre message"></textarea></div>
+<button class="btn" data-act="sendnotif">Envoyer</button></div>`;$("nu").value=F.nu;
+}
+async function rLogs(){
+$("view").innerHTML='<div class="box"><div class="empty">Chargement…</div></div>';
+try{const s=await getDocs(query(collection(db,"adminLogs"),limit(300)));S.logs=mapDocs(s).sort((a,b)=>tms(b.createdAt)-tms(a.createdAt))}catch(e){$("view").innerHTML='<div class="box"><div class="empty">Journal indisponible ('+esc(e.code||"erreur")+').</div></div>';return}
+$("view").innerHTML=`<div class="box"><div class="tw">${S.logs.length?`<table><thead><tr><th>Date</th><th>Administrateur</th><th>Action</th><th>Détail</th></tr></thead><tbody>${S.logs.map(l=>`<tr><td class="note" style="white-space:nowrap">${fd(l.createdAt)}</td><td>${esc(l.adminEmail)}</td><td><b>${esc(l.action)}</b></td><td>${esc(l.detail)}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">Aucune action enregistrée.</div>'}</div></div>`;
+}
+
+/* ---------- Fenêtres ---------- */
+function userModal(id){
+const u=uById(id),c=u.devise||"XOF",row=(l,v)=>v?`<div><span>${l}</span><b>${esc(v)}</b>${cp(v)}</div>`:`<div><span>${l}</span><b>—</b></div>`;
+modal(`<button class="x" data-act="close" aria-label="Fermer">×</button><h3>${esc(uname(u))}${u.disabled?' <span class="st bad">Désactivé</span>':""} ${onl(u)}</h3>
+<div class="ids">${row("UID",u.id)}${row("E-mail",u.email)}${row("N° de compte",u.accountNumber)}${row("Téléphone",u.telephone)}${row("Pays / ville",[u.pays,u.ville].filter(Boolean).join(" / "))}</div>
+<div class="k3"><div><span>Principal</span><b>${money(u.balance,c)}</b></div><div><span>Épargne</span><b>${money(u.savingsBalance,c)}</b></div><div><span>Carte</span><b>${money(u.cardBalance,c)}</b></div><div><span>Emprunt</span><b style="color:var(--bad)">${(Number(u.loanBalance)||0)<0?"− "+money(-u.loanBalance,c):"—"}</b></div></div>
+<h4>Gérer le solde</h4>
+<div class="two"><select id="m-field"><option value="balance">Compte principal</option><option value="savingsBalance">Compte épargne</option><option value="cardBalance">Carte</option></select>
+<select id="m-mode"><option value="credit">Créditer</option><option value="debit">Débiter</option><option value="set">Définir le solde</option></select></div>
+<input class="in" id="m-amount" type="number" min="0" inputmode="decimal" placeholder="Montant (${esc(c)})"><input class="in" id="m-note" placeholder="Libellé visible par le client (facultatif)">
+<label class="chk"><input type="checkbox" id="m-notif" checked>Prévenir le client par notification</label>
+<button class="btn" data-act="savebal" data-id="${esc(id)}">Appliquer</button>
+<h4>Autres actions</h4><div class="row2">
+<button class="btn ghost sm" style="width:100%" data-act="gotx" data-id="${esc(id)}">Voir l'historique</button>
+<button class="btn ghost sm" style="width:100%" data-act="gonotif" data-id="${esc(id)}">Envoyer un message</button>
+<button class="btn ghost sm" style="width:100%" data-act="togglecard" data-id="${esc(id)}">${u.cardActivated?"Désactiver la carte":"Activer la carte"}</button>
+<button class="btn red sm" style="width:100%" data-act="delhist" data-id="${esc(id)}">Supprimer l'historique</button><button class="btn ghost sm" style="width:100%" data-act="toggleacc" data-id="${esc(id)}">${u.disabled?"Réactiver le compte":"Désactiver le compte"}</button><button class="btn red sm" style="width:100%" data-act="delacc" data-id="${esc(id)}">Supprimer le compte</button></div>`);
+}
+function txModal(id){
+const t=S.tx.find(x=>x.id===id),tr=t.type==="transfer";
+const st=["En attente","Effectué","Rejeté","Annulé"].map(s=>`<option ${s===t.status?"selected":""}>${s}</option>`).join("");
+modal(`<button class="x" data-act="close" aria-label="Fermer">×</button><h3>Modifier : ${TL[t.type]||"opération"}</h3>
+<div class="note" style="margin:-6px 0 12px">${esc(uname(uById(t.uid)))} — ${fd(t.createdAt)}</div>
+<div class="two"><div><label class="note">Montant</label><input class="in" id="e-amount" type="number" min="0" value="${esc(t.amount)}"></div><div><label class="note">Statut</label><select id="e-status">${st}</select></div></div>
+<label class="note">Description</label><input class="in" id="e-desc" value="${esc(t.description)}">
+${tr?`<label class="note">Bénéficiaire</label><input class="in" id="e-bn" value="${esc(t.beneficiaryName)}"><div class="two"><div><label class="note">IBAN</label><input class="in" id="e-iban" value="${esc(t.beneficiaryIban)}"></div><div><label class="note">BIC / SWIFT</label><input class="in" id="e-bic" value="${esc(t.beneficiaryBic)}"></div></div><label class="note">Date d'exécution</label><input class="in" id="e-date" value="${esc(t.executionDate)}">`:""}
+${tr&&!t.debited?`<label class="chk"><input type="checkbox" id="e-debit" checked>Débiter le solde du client du montant si le statut passe à « Effectué »</label>`:""}
+<label class="chk"><input type="checkbox" id="e-notif" checked>Prévenir le client si le statut change</label>
+<button class="btn" data-act="savetx" data-id="${esc(id)}">Enregistrer</button>`);
+}
+
+/* ---------- Actions ---------- */
+async function decide(kind,id,ok){
+const dep=kind==="dep",r=(dep?S.dr:S.lr).find(x=>x.id===id),status=ok?(dep?"Effectué":"Approuvé"):"Rejeté",patch={status},c=r.currency||"XOF",what=dep?"dépôt":"emprunt";
+const rows=[["Référence",r.reference||id.slice(0,10).toUpperCase()],["Opération",dep?"Dépôt":"Emprunt"],["Montant",money(r.amount,c)]];
+if(ok&&dep&&!r.credited){const x=await bump(r.uid,"balance",Number(r.amount)||0);patch.credited=true;rows.push(["Montant crédité",money(r.amount,c)],["Nouveau solde du compte principal",money(x.nv,c)])}
+if(ok&&!dep&&!r.credited){
+const u=uById(r.uid);if((Number(u?.loanBalance)||0)<0)throw new Error("Ce client a déjà un emprunt en cours.");
+const n=Number(r.durationMonths)||1,cap=Number(r.amount)||0,interest=Math.round(cap*RATE*n),total=cap+interest,due=addM(new Date(),n);
+const x=await bump(r.uid,"balance",cap);
+await updateDoc(doc(db,"users",r.uid),{loanBalance:-total,loanPrincipal:cap,loanMonths:n,loanTotal:total,loanApprovedAt:new Date(),loanDueAt:due,loanPenaltyCount:0});
+patch.credited=true;
+rows.push(["Durée",n+" mois"],["Intérêts ("+(RATE*100)+" % × "+n+" mois)",money(interest,c)],["Capital crédité",money(cap,c)],["Nouveau solde du compte principal",money(x.nv,c)],["Solde de l'emprunt","− "+money(total,c)],["Échéance",due.toLocaleDateString("fr-FR")],["Pénalité après échéance",(RATE*100)+" % du capital par mois ("+money(Math.round(cap*RATE),c)+")"]);
+}
+await updateDoc(doc(db,dep?"depositRequests":"loanRequests",id),patch);
+const t=dep?S.tx.find(x=>x.requestId===id):S.tx.find(x=>x.type==="loan"&&x.uid===r.uid&&x.amount===r.amount&&x.durationMonths===r.durationMonths&&isPend(x.status));
+if(t)await updateDoc(doc(db,"transactions",t.id),ok&&!dep?{status,direction:"credit"}:{status});
+rows.push(["Statut",status],["Date",dstr()]);
+await notify(r.uid,ok?(dep?"Dépôt accepté":"Emprunt approuvé"):"Demande refusée",rows.map(([k,v])=>k+" : "+v).join("\n"));
+await log(ok?"Demande approuvée":"Demande rejetée",what+" "+money(r.amount,c)+" — "+uname(uById(r.uid)));
+}
+const askYN=msg=>new Promise(res=>{
+const o=document.createElement("div");o.className="modal";o.style.zIndex=400;
+o.innerHTML=`<div class="mb" style="max-width:400px;text-align:center"><h3 style="padding:0;margin-bottom:8px">Voulez-vous supprimer ?</h3><p style="color:var(--mute);margin:0 0 20px;white-space:pre-line;font-size:14px">${esc(msg)}</p><div class="two" style="margin:0"><button class="btn ghost" data-r="0">Non</button><button class="btn red" data-r="1">Oui</button></div></div>`;
+o.onclick=e=>{const b=e.target.closest("[data-r]");if(!b&&e.target!==o)return;o.remove();res(!!b&&b.dataset.r==="1")};
+document.body.appendChild(o);
+});
+const selUsers=()=>[...document.querySelectorAll(".usel:checked")].map(x=>x.value);
+/* ---------- Présence en ligne ---------- */
+const ONLINE_MS=120000;
+const seenMs=u=>u?.lastSeen?.toMillis?u.lastSeen.toMillis():0;
+const isOn=u=>!u.disabled&&Date.now()-seenMs(u)<ONLINE_MS;
+function ago(ms){
+if(ms<=0)return"";const m=Math.floor((Date.now()-ms)/60000);
+if(m<1)return"à l'instant";if(m<60)return"il y a "+m+" min";
+const h=Math.floor(m/60);if(h<24)return"il y a "+h+" h";return"il y a "+Math.floor(h/24)+" j";
+}
+const onl=u=>isOn(u)?'<span class="onb on">En ligne</span>':'<span class="onb" title="'+(seenMs(u)>0?"Dernière activité : "+esc(ago(seenMs(u))):"Jamais vu")+'">Hors ligne</span>';
+const upOn=()=>{const e=$("onc");if(e)e.textContent=S.users.filter(isOn).length+" en ligne"};
+async function pollUsers(){
+if(!me||document.hidden||(view!=="users"&&view!=="dashboard"))return;
+try{
+const s=await getDocs(collection(db,"users")),keep=new Set(selUsers());
+S.users=mapDocs(s).sort((a,b)=>uname(a).localeCompare(uname(b)));
+if(view==="users"){fillUsers();document.querySelectorAll(".usel").forEach(x=>{if(keep.has(x.value))x.checked=true})}else rDash();
+}catch(e){console.warn("Actualisation :",e)}
+}
+async function setDisabled(ids,off){
+for(const id of ids){await updateDoc(doc(db,"users",id),off?{disabled:true,status:"Suspendu",disabledAt:serverTimestamp()}:{disabled:false,status:"Actif"});await log(off?"Compte désactivé":"Compte réactivé",uname(uById(id)))}
+}
+async function deleteAccount(id){
+const u=uById(id),name=uname(u)+" ("+(u?.email||id)+")";
+await setDoc(doc(db,"closedUsers",id),{uid:id,email:u?.email||"",closedAt:serverTimestamp(),closedBy:me.email});
+for(const col of ["transactions","notifications","depositRequests","loanRequests"]){const s=await getDocs(query(collection(db,col),where("uid","==",id)));await delMany(s.docs.map(d=>d.ref))}
+await deleteDoc(doc(db,"users",id));
+await log("Compte supprimé",name);
+}
+const ACT={
+close:closeM,
+logout:async()=>{try{await disablePush(auth.app,db,me.uid)}catch(_){}await signOut(auth)},
+refresh:()=>run(async()=>{await accrueAll()},"Données actualisées"),
+user:id=>userModal(id),
+edittx:id=>txModal(id),
+rt:id=>{F.rt=id;rReq()},
+deltx:async id=>{if(await askYN("Supprimer cette opération de l'historique ?"))run(async()=>{await deleteDoc(doc(db,"transactions",id));await log("Opération supprimée",id)},"Opération supprimée")},
+delsel:async()=>{const ids=[...document.querySelectorAll(".sel:checked")].map(x=>x.value);if(!ids.length)return toast("Sélectionnez au moins une opération.");if(await askYN("Supprimer "+ids.length+" opération(s) ? Action définitive."))run(async()=>{await delMany(ids.map(i=>doc(db,"transactions",i)));await log("Suppression multiple",ids.length+" opérations")},"Opérations supprimées")},
+delhist:async id=>{const u=uById(id);if(await askYN("Supprimer tout l'historique de "+uname(u)+" ? Action définitive."))run(async()=>{const s=await getDocs(query(collection(db,"transactions"),where("uid","==",id)));await delMany(s.docs.map(d=>d.ref));await log("Historique supprimé",uname(u)+" ("+s.size+" opérations)");closeM()},"Historique supprimé")},
+delreq:async id=>{if(await askYN("Supprimer cette demande ?"))run(async()=>{await deleteDoc(doc(db,F.rt==="dep"?"depositRequests":"loanRequests",id));await log("Demande supprimée",id)},"Demande supprimée")},
+ok:id=>{if(confirm(F.rt==="dep"?"Approuver et créditer le compte du client ?":"Approuver cet emprunt et créditer le capital sur le compte principal du client ?"))run(()=>decide(F.rt,id,true),"Demande approuvée")},
+no:id=>{if(confirm("Rejeter cette demande ?"))run(()=>decide(F.rt,id,false),"Demande rejetée")},
+gotx:id=>{const u=uById(id);F.tq=u.email||id;F.tt="all";F.ts="all";closeM();view="tx";render()},
+gonotif:id=>{F.nu=id;closeM();view="notif";render()},
+togglecard:id=>{const u=uById(id),on=!u.cardActivated;run(async()=>{await updateDoc(doc(db,"users",id),{cardActivated:on});await log(on?"Carte activée":"Carte désactivée",uname(u));closeM()},on?"Carte activée":"Carte désactivée")},
+savebal:id=>{
+const f=$("m-field").value,mode=$("m-mode").value,amt=Math.round(Number($("m-amount").value)),note=$("m-note").value.trim(),nt=$("m-notif").checked;
+if(!(amt>=0)||$("m-amount").value==="")return toast("Saisissez un montant valide.");
+if(mode!=="set"&&amt<=0)return toast("Le montant doit être supérieur à 0.");
+run(async()=>{
+const r=await bump(id,f,mode==="credit"?amt:-amt,mode==="set"?amt:undefined),delta=r.nv-r.cur,c=r.d.devise||"XOF";
+if(delta!==0){
+await addDoc(collection(db,"transactions"),{uid:id,type:"adjustment",direction:delta>0?"credit":"debit",amount:Math.abs(delta),currency:c,status:"Effectué",description:note||"Ajustement du "+FL[f]+" par l'administration",createdAt:serverTimestamp()});
+if(nt)await notify(id,"Mise à jour de votre solde",["Référence : ADM-"+Date.now().toString(36).toUpperCase(),"Opération : "+(delta>0?"Crédit":"Débit")+" par l'administration","Compte : "+FL[f],"Montant : "+(delta>0?"+ ":"− ")+money(Math.abs(delta),c),"Ancien solde : "+money(r.cur,c),"Nouveau solde : "+money(r.nv,c),note?"Libellé : "+note:"","Date : "+dstr()].filter(Boolean).join("\n"));
+}
+await log("Solde modifié",uname(uById(id))+" — "+FL[f]+" : "+money(r.cur,c)+" → "+money(r.nv,c));closeM();
+},"Solde mis à jour");
+},
+savetx:id=>{
+const t=S.tx.find(x=>x.id===id),amount=Math.round(Number($("e-amount").value)),status=$("e-status").value;
+if(!(amount>=0))return toast("Montant invalide.");
+const patch={amount,status,description:$("e-desc").value.trim()};
+if(t.type==="transfer"){Object.assign(patch,{beneficiaryName:$("e-bn").value.trim(),beneficiaryIban:$("e-iban").value.trim(),beneficiaryBic:$("e-bic").value.trim(),executionDate:$("e-date").value.trim()})}
+const deb=$("e-debit")?.checked,nt=$("e-notif").checked;
+run(async()=>{
+if(t.type==="transfer"&&status==="Effectué"&&!t.debited&&deb){await bump(t.uid,"balance",-amount);patch.debited=true}
+await updateDoc(doc(db,"transactions",id),patch);
+if(nt&&status!==t.status)await notify(t.uid,"Mise à jour de votre "+(TL[t.type]||"opération").toLowerCase(),["Référence : "+(t.reference||t.id.slice(0,10).toUpperCase()),"Type : "+(TL[t.type]||"Opération"),"Montant : "+money(amount,t.currency),t.beneficiaryName?"Bénéficiaire : "+t.beneficiaryName:"",patch.debited&&!t.debited?"Montant débité de votre compte principal : "+money(amount,t.currency):"","Ancien statut : "+t.status,"Nouveau statut : "+status,"Date : "+dstr()].filter(Boolean).join("\n"));
+await log("Opération modifiée",(TL[t.type]||"")+" "+money(amount,t.currency)+" — "+uname(uById(t.uid))+" ("+status+")");closeM();
+},"Opération modifiée");
+},
+sendnotif:()=>{
+const to=$("nu").value,title=$("nt").value.trim(),msg=$("nm").value.trim();
+if(!title||!msg)return toast("Renseignez le titre et le message.");
+if(to==="all"&&!confirm("Envoyer ce message aux "+S.users.length+" clients ?"))return;
+run(async()=>{const ids=to==="all"?S.users.map(u=>u.id):[to];for(let i=0;i<ids.length;i+=400){const b=writeBatch(db);ids.slice(i,i+400).forEach(uid=>b.set(doc(collection(db,"notifications")),{uid,title,message:msg,read:false,createdAt:serverTimestamp()}));await b.commit()}
+await log("Notification envoyée",(to==="all"?"Tous les clients":uname(uById(to)))+" — "+title)},"Notification envoyée");
+},
+toggleacc:id=>{const u=uById(id),off=!u.disabled;if(confirm((off?"Désactiver":"Réactiver")+" le compte de "+uname(u)+" ?"+(off?"\nLe client ne pourra plus utiliser son espace ni effectuer d'opérations.":"")))run(async()=>{await setDisabled([id],off);closeM()},off?"Compte désactivé":"Compte réactivé")},
+delacc:async id=>{
+if(id===me.uid)return toast("Vous ne pouvez pas supprimer votre propre compte.");
+const u=uById(id);if(!await askYN("Supprimer définitivement le compte de "+uname(u)+" et toutes ses données ?\nCette action est définitive."))return toast("Suppression annulée.");
+run(async()=>{await deleteAccount(id);closeM()},"Compte supprimé");
+},
+disusers:()=>{const ids=selUsers();if(!ids.length)return toast("Sélectionnez au moins un client.");if(confirm("Désactiver "+ids.length+" compte(s) ?"))run(()=>setDisabled(ids,true),ids.length+" compte(s) désactivé(s)")},
+enusers:()=>{const ids=selUsers();if(!ids.length)return toast("Sélectionnez au moins un client.");if(confirm("Réactiver "+ids.length+" compte(s) ?"))run(()=>setDisabled(ids,false),ids.length+" compte(s) réactivé(s)")},
+delusers:async()=>{const ids=selUsers().filter(i=>i!==me.uid);if(!ids.length)return toast("Sélectionnez au moins un client.");if(!await askYN("Supprimer définitivement "+ids.length+" compte(s) et toutes leurs données ?\nCette action est définitive."))return toast("Suppression annulée.");run(async()=>{for(const i of ids)await deleteAccount(i)},ids.length+" compte(s) supprimé(s)")},
+exusers:()=>csv([["UID","Prénom","Nom","E-mail","Compte","Devise","Solde","Épargne","Carte","Téléphone","Pays","Ville"],...S.users.map(u=>[u.id,u.prenom,u.nom,u.email,u.accountNumber,u.devise,u.balance,u.savingsBalance,u.cardBalance,u.telephone,u.pays,u.ville])],"utilisateurs.csv"),
+extx:()=>csv([["Date","UID","Client","Type","Montant","Devise","Statut","Description","Bénéficiaire","IBAN"],...txFilter().map(t=>[fd(t.createdAt),t.uid,uname(uById(t.uid)),TL[t.type]||t.type,t.amount,t.currency,t.status,t.description,t.beneficiaryName,t.beneficiaryIban])],"transactions.csv")
+};
+document.addEventListener("click",e=>{
+const c=e.target.closest("[data-copy]");if(c)return copy(c.dataset.copy);
+const v=e.target.closest("[data-v]");if(v){view=v.dataset.v;return render()}
+const a=e.target.closest("[data-act]");if(a&&ACT[a.dataset.act])ACT[a.dataset.act](a.dataset.id,a);
+});
+$("modal").addEventListener("mousedown",e=>{if(e.target===$("modal"))closeM()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeM()});
+
+/* ---------- Connexion ---------- */
+const lerr=m=>{$("lErr").textContent=m;$("lErr").classList.toggle("hidden",!m)};
+const showLogin=()=>{$("boot").classList.add("hidden");$("app").classList.add("hidden");$("login").classList.remove("hidden")};
+async function doLogin(){
+const b=$("lBtn");lerr("");b.disabled=true;b.textContent="Connexion…";
+try{await signInWithEmailAndPassword(auth,$("lEmail").value.trim(),$("lPass").value)}
+catch(e){console.error(e);lerr(/invalid|wrong|user-not-found/.test(e.code||"")?"E-mail ou mot de passe incorrect.":"Connexion impossible ("+(e.code||"erreur")+").")}
+b.disabled=false;b.textContent="Se connecter";
+}
+$("lBtn").onclick=doLogin;$("lPass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin()});
+/* ---------- Notifications push ---------- */
+let fgOn=false;
+async function paintPush(){
+const st=await pushStatus(),on=st==="granted";
+document.querySelectorAll(".pushbtn").forEach(b=>{b.classList.toggle("hidden",st==="unsupported");b.querySelector(".pushlbl").textContent=on?"Alertes activées":"Activer les alertes"});
+const bar=$("pushBar"),msg=$("pushBarMsg"),bb=$("pushBarBtn");
+if(!pushOK){bar.classList.remove("hidden");msg.textContent="Fichier push.js introuvable dans ce dépôt : les alertes sont impossibles.";bb.classList.add("hidden");return}
+if(on||st==="unsupported"){bar.classList.add("hidden");return}
+bar.classList.remove("hidden");bb.classList.remove("hidden");
+if(st==="ios-install"){msg.textContent="iPhone : Partager > Sur l'écran d'accueil, puis ouvrez l'app depuis son icône.";bb.classList.add("hidden")}
+else if(st==="denied"){msg.textContent="Notifications bloquées : autorisez-les dans les réglages du navigateur.";bb.classList.add("hidden")}
+else msg.textContent="Recevez une alerte sur ce téléphone pour chaque inscription ou demande."
+}
+async function onPushClick(){
+const st=await pushStatus();
+if(st==="ios-install"){toast("iPhone : Partager > Sur l'écran d'accueil, puis ouvrez l'app depuis son icône.");return}
+if(st==="denied"){toast("Notifications bloquées : autorisez-les dans les réglages du navigateur.");return}
+await enablePush(auth.app,db,me.uid);
+if(Notification.permission==="granted"){toast("Alertes activées sur cet appareil.");showLocal("Sorevia Admin","Les alertes sont activées.","./","test")}
+else toast("Alertes non autorisées.");
+await paintPush();
+}
+document.querySelectorAll(".pushbtn").forEach(b=>b.onclick=onPushClick);$("pushBarBtn").onclick=onPushClick;
+
+let adminLive=false;
+function startAdminLive(){
+if(adminLive)return;adminLive=true;
+const specs=[
+["users","Nouvelle inscription",d=>((d.prenom||"")+" "+(d.nom||"")).trim()||d.email||"Nouveau client"],
+["depositRequests","Nouvelle demande de dépôt",d=>uname(uById(d.uid))+" — "+money(d.amount,d.currency)],
+["loanRequests","Nouvelle demande d'emprunt",d=>uname(uById(d.uid))+" — "+money(d.amount,d.currency)]];
+specs.forEach(([col,title,fmt])=>{
+let first=true;
+onSnapshot(collection(db,col),snap=>{
+if(first){first=false;return}
+const add=snap.docChanges().filter(c=>c.type==="added");
+if(!add.length)return;
+add.slice(0,3).forEach(c=>{const body=fmt(c.doc.data());toast(title+" — "+body);showLocal(title,body,"./","adm-"+col+"-"+c.doc.id)});
+loadAll().then(()=>{if(view==="dashboard"||view==="req")render()}).catch(()=>{});
+},e=>console.warn("Écoute en direct :",col,e));
+});
+}
+
+onAuthStateChanged(auth,async u=>{
+if(!u){me=null;showLogin();return}
+try{if(!(await getDoc(doc(db,"admins",u.uid))).exists()){await signOut(auth);lerr("Ce compte n'a pas les droits administrateur.");return}}
+catch(e){await signOut(auth);lerr("Accès refusé ("+(e.code||"erreur")+").");return}
+me=u;$("who").textContent=u.email;$("mail").textContent=u.email;
+try{await loadAll();const n=await accrueAll();if(n){await loadAll();toast(n+" pénalité(s) de retard appliquée(s)")}}catch(e){console.error(e);toast("Chargement des données impossible ("+(e.code||"erreur")+")")}
+$("boot").classList.add("hidden");$("login").classList.add("hidden");$("app").classList.remove("hidden");render();
+clearInterval(window.pr);window.pr=setInterval(pollUsers,30000);
+refreshPush(auth.app,db,u.uid).catch(()=>{});paintPush();startAdminLive();
+if(!fgOn){fgOn=true;onForeground(auth.app,d=>toast((d.title||"Sorevia Admin")+(d.body?" — "+d.body:"")))}
+});
+</script>
+</body>
+</html>
